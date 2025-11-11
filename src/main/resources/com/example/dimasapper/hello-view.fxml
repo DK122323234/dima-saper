@@ -362,11 +362,11 @@
             </Button>
          </children>
       </GridPane>
-      <Button layoutX="171.0" layoutY="103.0" mnemonicParsing="false" onAction="#Rewrite" prefHeight="72.0" prefWidth="409.0" text="Перезапустить">
+      <Button layoutX="139.0" layoutY="114.0" mnemonicParsing="false" onAction="#Rewrite" prefHeight="77.0" prefWidth="474.0" text="Запустить новую игру">
          <font>
             <Font size="36.0" />
          </font></Button>
-      <Label fx:id="result" layoutX="122.0" layoutY="14.0" prefHeight="75.0" prefWidth="480.0" text="        ИГРА ИДЕТ">
+      <Label fx:id="result" layoutX="122.0" layoutY="14.0" prefHeight="75.0" prefWidth="480.0">
          <font>
             <Font size="52.0" />
          </font>

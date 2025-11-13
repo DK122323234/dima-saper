@@ -191,11 +191,7 @@
                <font>
                   <Font size="30.0" />
                </font></Button>
-            <Button fx:id="cell41" mnemonicParsing="false" onAction="#click" prefHeight="134.0" prefWidth="119.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
-               <font>
-                  <Font size="30.0" />
-               </font></Button>
-            <Button fx:id="cell40" mnemonicParsing="false" onAction="#click" prefHeight="134.0" prefWidth="119.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <Button fx:id="cell40" mnemonicParsing="false" onAction="#click" prefHeight="134.0" prefWidth="119.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <font>
                   <Font size="30.0" />
                </font></Button>
@@ -356,6 +352,11 @@
                   <Font size="30.0" />
                </font></Button>
             <Button fx:id="cell7" mnemonicParsing="false" onAction="#click" prefHeight="134.0" prefWidth="119.0" GridPane.columnIndex="7">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="cell41" mnemonicParsing="false" onAction="#click" prefHeight="134.0" prefWidth="119.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <font>
                   <Font size="30.0" />
                </font>

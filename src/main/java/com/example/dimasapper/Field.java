@@ -3,6 +3,7 @@ package com.example.dimasapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Field {
     public List<Integer> returnField(Set<Integer> set){
@@ -35,6 +36,12 @@ public class Field {
                                  list1.set(i + 8, list1.get(i + 8) + 1);
                              }
                          }
+                         if (i - 10 >= 0) {
+                             if (list1.get(i - 10) != 9) {
+                                 list1.set(i - 10, list1.get(i - 10) + 1);
+                             }
+
+                         }
                        }
                      else {
                          System.out.println("Если это читает Лёша, перестань немедлено");
@@ -50,9 +57,15 @@ public class Field {
                            if (list1.get(i + 1) != 9) {
                                list1.set(i + 1, list1.get(i + 1) + 1);
                            }
-                           if (i - 10 >= 0) {
-                               if (list1.get(i - 10) != 9) {
-                                   list1.set(i - 10, list1.get(i - 10) + 1);
+
+                           if (i - 8 >= 0) {
+                               if (list1.get(i - 8) != 9) {
+                                   list1.set(i - 8, list1.get(i - 8) + 1);
+                               }
+                           }
+                           if (i + 10 <= 80) {
+                               if (list1.get(i + 10) != 9) {
+                                   list1.set(i + 10, list1.get(i + 10) + 1);
                                }
                            }
 
@@ -79,18 +92,10 @@ public class Field {
                        }
                    }
 
-                   if (i - 8 >= 0) {
-                       if (list1.get(i - 8) != 9) {
-                           list1.set(i - 8, list1.get(i - 8) + 1);
-                       }
-                   }
 
 
-                   if (i + 10 <= 80) {
-                       if (list1.get(i + 10) != 9) {
-                           list1.set(i + 10, list1.get(i + 10) + 1);
-                       }
-                   }
+
+
 
                }
                i ++;

@@ -1,10 +1,6 @@
 package com.example.dimasapper;
-import java.util.Arrays;
+import java.util.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
@@ -13,10 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class HelloController {
-    List<Integer> list;
+    static List<Integer> list;
+    Set<String> set = new HashSet<>();
     List<String> list2 = new ArrayList<>();
     boolean game = true;
-    boolean ok = true;
+    boolean flagMode = true;
+
 
 
 
@@ -274,66 +272,69 @@ public class HelloController {
 
 
 
+
     @FXML
     void click(ActionEvent event) {
-        try {
+        String buttonSource = event.getSource().toString();
+        ButtonId buttonId = new ButtonId();
+
+        Button[] buttonsArray = {
+                cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9,
+                cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19,
+                cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29,
+                cell30, cell31, cell32, cell33, cell34, cell35, cell36, cell37, cell38, cell39,
+                cell40, cell41, cell42, cell43, cell44, cell45, cell46, cell47, cell48, cell49,
+                cell50, cell51, cell52, cell53, cell54, cell55, cell56, cell57, cell58, cell59,
+                cell60, cell61, cell62, cell63, cell64, cell65, cell66, cell67, cell68, cell69,
+                cell70, cell71, cell72, cell73, cell74, cell75, cell76, cell77, cell78, cell79,
+                cell80
+        };
+
+        if (flagMode) {
+            try {
 
 
-            Button[] buttonsArray = {
-                    cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9,
-                    cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19,
-                    cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29,
-                    cell30, cell31, cell32, cell33, cell34, cell35, cell36, cell37, cell38, cell39,
-                    cell40, cell41, cell42, cell43, cell44, cell45, cell46, cell47, cell48, cell49,
-                    cell50, cell51, cell52, cell53, cell54, cell55, cell56, cell57, cell58, cell59,
-                    cell60, cell61, cell62, cell63, cell64, cell65, cell66, cell67, cell68, cell69,
-                    cell70, cell71, cell72, cell73, cell74, cell75, cell76, cell77, cell78, cell79,
-                    cell80
-            };
+
+                List<Button> listButtons = Arrays.asList(buttonsArray);
 
 
-            List<Button> listButtons = Arrays.asList(buttonsArray);
+                int i = 0;
+                for (Integer list1 : list) {
+                    if (i == Integer.valueOf(buttonId.sendingId(buttonSource).replace("cell", ""))) {
+                        if (list1 == 9) {
+                            result.setText("    ВЫ ПРОИГРАЛИ");
+                            endGame(buttonsArray);
 
-            String buttonSource = event.getSource().toString();
-            ButtonId buttonId = new ButtonId();
-            int i = 0;
-            for (Integer list1 : list) {
-                if (i == Integer.valueOf(buttonId.sendingId(buttonSource).replace("cell", ""))) {
-                    if (list1 == 9) {
-                        listButtons.get(i).setText("*");
-                        game = false;
-                    } else if (list1 == 0) {
-                        listButtons.get(i).setText("");
+                        } else if (list1 == 0) {
+                            listButtons.get(i).setText("");
+                        } else {
+                            listButtons.get(i).setText(list1.toString());
+                        }
+                        listButtons.get(i).setDisable(true);
                     } else {
-                        listButtons.get(i).setText(list1.toString());
+                        list2.add(list1.toString());
                     }
-                    listButtons.get(i).setDisable(true);
-                } else {
-                    list2.add(list1.toString());
-                }
-                i++;
-            }
-
-
-            if (!game) {
-                result.setText("   ВЫ ПРОИГРАЛИ");
-                List.of(buttonsArray).forEach(cell -> cell.setDisable(true));
-                int d = 0;
-                for (Integer mine : list) {
-                    if (mine == 9) {
-                        buttonsArray[d].setText(("*"));
-                        System.out.println("de");
-
-                    }
-                    d++;
-
+                    i++;
                 }
 
+            } catch (Exception e) {
+                System.out.println("НЕ В КОЕМ СЛУЧАЕ НЕ ДАВАЙ КОД ЛЁШЕ");
             }
-        } catch (Exception e) {
-            System.out.println("НЕ В КОЕМ СЛУЧАЕ НЕ ДАВАЙ КОД ЛЕШЕ");
+            buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setStyle("-fx-text-fill: black;");
+        }
+        else {
+            if (set.contains(ButtonId.sendingId(buttonSource))) {
+                buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setText("");
+            }
+            else {
+                buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setText("<|");
+                buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setStyle("-fx-text-fill: red;");
+                set.add(ButtonId.sendingId(buttonSource).replace("cell", ""));
+                System.out.println("set");
+            }
         }
     }
+
     @FXML
     void Rewrite(ActionEvent event) {
         Button[] buttonsArray1 = {
@@ -347,11 +348,12 @@ public class HelloController {
                 cell70, cell71, cell72, cell73, cell74, cell75, cell76, cell77, cell78, cell79,
                 cell80
         };
+        set = new HashSet<>();
 
 
-          MinePlacement minePlacement = new MinePlacement();
+        MinePlacement minePlacement = new MinePlacement();
         Field field = new Field();
-        list = field.returnField(minePlacement.returnMines());;
+        list = field.returnField(minePlacement.returnMines());
 
 
 
@@ -359,8 +361,59 @@ public class HelloController {
         List.of(buttonsArray1).forEach(cell -> cell.setText(""));
         result.setText("        ИГРА ИДЕТ");
         game = true;
-              }
+    }
+
+    @FXML
+    void regimeChange(ActionEvent event) {
+        flagMode = !flagMode;
+    }
+
+    @FXML
+    void checkFlags(ActionEvent event) {
+        Button[] buttonsArray1 = {
+                cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9,
+                cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19,
+                cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29,
+                cell30, cell31, cell32, cell33, cell34, cell35, cell36, cell37, cell38, cell39,
+                cell40, cell41, cell42, cell43, cell44, cell45, cell46, cell47, cell48, cell49,
+                cell50, cell51, cell52, cell53, cell54, cell55, cell56, cell57, cell58, cell59,
+                cell60, cell61, cell62, cell63, cell64, cell65, cell66, cell67, cell68, cell69,
+                cell70, cell71, cell72, cell73, cell74, cell75, cell76, cell77, cell78, cell79,
+                cell80
+        };
+         int i = 0;
+         for (String set : set) {
+             if (list.get(Integer.parseInt(set)) == 9 ){
+                 i = i + 1;
+                 System.out.println(i);
+             }
+         }
+         if (i == 8){
+             result.setText("    ВЫ ПОБЕДИЛИ");
+             endGame(buttonsArray1);
+         }
+         else {
+             result.setText("   ВЫ ПРОИГРАЛИ");
+             endGame(buttonsArray1);
+         }
+    }
+    public static void endGame(Button[] buttonsArray) {
+
+        List.of(buttonsArray).forEach(cell -> cell.setDisable(true));
+        int d = 0;
+        for (Integer mine : list) {
+            if (mine == 9) {
+                buttonsArray[d].setText(("*"));
+
+            }
+            d++;
 
         }
+    }
+
+
+
+
+}
 
 

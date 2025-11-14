@@ -323,14 +323,14 @@ public class HelloController {
             buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setStyle("-fx-text-fill: black;");
         }
         else {
-            if (set.contains(ButtonId.sendingId(buttonSource))) {
+            if (set.contains(ButtonId.sendingId(buttonSource).replace("cell", ""))) {
                 buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setText("");
+                set.remove(ButtonId.sendingId(buttonSource).replace("cell", ""));
             }
             else {
                 buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setText("<|");
                 buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setStyle("-fx-text-fill: red;");
                 set.add(ButtonId.sendingId(buttonSource).replace("cell", ""));
-                System.out.println("set");
             }
         }
     }
@@ -389,11 +389,11 @@ public class HelloController {
              }
          }
          if (i == 8){
-             result.setText("    ВЫ ПОБЕДИЛИ");
+             result.setText("      ВЫ ПОБЕДИЛИ");
              endGame(buttonsArray1);
          }
          else {
-             result.setText("   ВЫ ПРОИГРАЛИ");
+             result.setText("      ВЫ ПРОИГРАЛИ");
              endGame(buttonsArray1);
          }
     }

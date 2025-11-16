@@ -3,42 +3,47 @@ package com.example.dimasapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class Field {
-    public List<Integer> returnField(Set<Integer> set){
-        List<Integer> list1 = new ArrayList<>();
-        int i = 0;
-           while(list1.size() < 81){
-                 if (set.contains(i)){
-                list1.add(9);
+    public List<Integer> returnField(Set<Integer> ARRAY_LOCATION_MIN){
+        List<Integer> fieldCellArray  = new ArrayList<>();
+        Integer[] ARRAY_OF_PROHIBITED_INDEX1 = {0, 9, 18, 27, 36, 45, 56, 63, 72};
+        List<Integer> ARRAY_LIST_OF_PROHIBITED_INDEX1 = new ArrayList<>(List.of(ARRAY_OF_PROHIBITED_INDEX1));
+
+        Integer[] ARRAY_OF_PROHIBITED_INDEX2 = {8, 17, 26, 35, 44, 53, 62, 71, 80};
+        List<Integer> ARRAY_LIST_OF_PROHIBITED_INDEX2 = new ArrayList<>(List.of(ARRAY_OF_PROHIBITED_INDEX2));
+        int INDEX_ARRAY_MINE = 0;
+
+
+           while(fieldCellArray.size() < 81){
+                     if (ARRAY_LOCATION_MIN.contains(INDEX_ARRAY_MINE)){
+                         fieldCellArray.add(9);
 
             }
             else {
-                list1.add(0);
+                         fieldCellArray.add(0);
             }
-            i++;
+               INDEX_ARRAY_MINE++;
         }
-           i = 0;
+        INDEX_ARRAY_MINE = 0;
 
 
-           for (Integer integer : list1){
+           for (Integer integer : fieldCellArray){
                if (integer == 9){
                    try {
-                     if (i != 0 && i != 9 && i != 18 && i != 27 && i != 36 && i != 45
-                             && i != 54 && i != 63 && i != 72){
-                         if (list1.get(i - 1) != 9){
-                             list1.set(i - 1, list1.get(i - 1) + 1);
+                     if (!ARRAY_LIST_OF_PROHIBITED_INDEX1.contains(INDEX_ARRAY_MINE)){
+                         if (fieldCellArray.get(INDEX_ARRAY_MINE - 1) != 9){
+                             fieldCellArray.set(INDEX_ARRAY_MINE - 1, fieldCellArray.get(INDEX_ARRAY_MINE - 1) + 1);
 
                          }
-                         if (i + 8 <= 80) {
-                             if (list1.get(i + 8) != 9) {
-                                 list1.set(i + 8, list1.get(i + 8) + 1);
+                         if (INDEX_ARRAY_MINE + 8 <= 80) {
+                             if (fieldCellArray.get(INDEX_ARRAY_MINE + 8) != 9) {
+                                 fieldCellArray.set(INDEX_ARRAY_MINE + 8, fieldCellArray.get(INDEX_ARRAY_MINE + 8) + 1);
                              }
                          }
-                         if (i - 10 >= 0) {
-                             if (list1.get(i - 10) != 9) {
-                                 list1.set(i - 10, list1.get(i - 10) + 1);
+                         if (INDEX_ARRAY_MINE - 10 >= 0) {
+                             if (fieldCellArray.get(INDEX_ARRAY_MINE - 10) != 9) {
+                                 fieldCellArray.set(INDEX_ARRAY_MINE - 10, fieldCellArray.get(INDEX_ARRAY_MINE - 10) + 1);
                              }
 
                          }
@@ -51,21 +56,20 @@ public class Field {
 
 
 
-                       if (i != 8 && i != 17 && i  != 26 && i != 35 && i != 44 &&
-                                i != 53 && i != 62 && i != 71 && i != 80){
+                       if (!ARRAY_LIST_OF_PROHIBITED_INDEX2.contains(INDEX_ARRAY_MINE)){
 
-                           if (list1.get(i + 1) != 9) {
-                               list1.set(i + 1, list1.get(i + 1) + 1);
+                           if (fieldCellArray.get(INDEX_ARRAY_MINE + 1) != 9) {
+                               fieldCellArray.set(INDEX_ARRAY_MINE + 1, fieldCellArray.get(INDEX_ARRAY_MINE + 1) + 1);
                            }
 
-                           if (i - 8 >= 0) {
-                               if (list1.get(i - 8) != 9) {
-                                   list1.set(i - 8, list1.get(i - 8) + 1);
+                           if (INDEX_ARRAY_MINE - 8 >= 0) {
+                               if (fieldCellArray.get(INDEX_ARRAY_MINE - 8) != 9) {
+                                   fieldCellArray.set(INDEX_ARRAY_MINE - 8, fieldCellArray.get(INDEX_ARRAY_MINE - 8) + 1);
                                }
                            }
-                           if (i + 10 <= 80) {
-                               if (list1.get(i + 10) != 9) {
-                                   list1.set(i + 10, list1.get(i + 10) + 1);
+                           if (INDEX_ARRAY_MINE + 10 <= 80) {
+                               if (fieldCellArray.get(INDEX_ARRAY_MINE + 10) != 9) {
+                                   fieldCellArray.set(INDEX_ARRAY_MINE + 10, fieldCellArray.get(INDEX_ARRAY_MINE + 10) + 1);
                                }
                            }
 
@@ -80,15 +84,15 @@ public class Field {
                        System.out.println("ПРОЧИТАТЬ:");
                    }
 
-                       if (i - 9 >= 0) {
-                           if (list1.get(i - 9) != 9) {
-                           list1.set(i - 9, list1.get(i - 9) + 1);
+                       if (INDEX_ARRAY_MINE - 9 >= 0) {
+                           if (fieldCellArray.get(INDEX_ARRAY_MINE - 9) != 9) {
+                               fieldCellArray.set(INDEX_ARRAY_MINE - 9, fieldCellArray.get(INDEX_ARRAY_MINE - 9) + 1);
                        }
                    }
 
-                       if (i + 9 <= 80) {
-                           if (list1.get(i + 9) != 9) {
-                           list1.set(i + 9, list1.get(i + 9) + 1);
+                       if (INDEX_ARRAY_MINE + 9 <= 80) {
+                           if (fieldCellArray.get(INDEX_ARRAY_MINE + 9) != 9) {
+                               fieldCellArray.set(INDEX_ARRAY_MINE + 9, fieldCellArray.get(INDEX_ARRAY_MINE + 9) + 1);
                        }
                    }
 
@@ -98,10 +102,10 @@ public class Field {
 
 
                }
-               i ++;
+               INDEX_ARRAY_MINE ++;
            }
 
-        return list1;
+        return fieldCellArray;
     }
 }
 

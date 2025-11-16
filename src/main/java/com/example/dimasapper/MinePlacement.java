@@ -5,15 +5,15 @@ import java.util.stream.IntStream;
 
 public class MinePlacement {
     public Set<Integer> returnMines() {
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> cellIndexMine = new HashSet<>();
         Random rand = new Random();
         IntStream.of(rand.nextInt(80), rand.nextInt(80), rand.nextInt(80), rand.nextInt(80), rand.nextInt(80), rand.nextInt(80),
-                rand.nextInt(80), rand.nextInt(80)).forEach(set::add);
+                rand.nextInt(80), rand.nextInt(80)).forEach(cellIndexMine::add);
 
-        while (set.size() < 8) {
-            set.add(rand.nextInt(80));
+        while (cellIndexMine.size() < 8) {
+            cellIndexMine.add(rand.nextInt(80));
         }
 
-        return set;
+        return cellIndexMine;
     }
 }

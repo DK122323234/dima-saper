@@ -1,7 +1,6 @@
 package com.example.dimasapper;
 import java.util.*;
 import java.net.URL;
-import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,12 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class HelloController {
-    static List<Integer> list;
-    Set<String> set = new HashSet<>();
-    List<String> list2 = new ArrayList<>();
-    boolean game = true;
+    static List<Integer> playingField;
+    Set<String> ArraysOfFlagIndex = new HashSet<>();
     boolean flagMode = true;
-
+   static int BUTTON_INDEX = 0;
 
 
 
@@ -299,7 +296,7 @@ public class HelloController {
 
 
                 int i = 0;
-                for (Integer list1 : list) {
+                for (Integer list1 : playingField) {
                     if (i == Integer.valueOf(buttonId.sendingId(buttonSource).replace("cell", ""))) {
                         if (list1 == 9) {
                             result.setText("    ВЫ ПРОИГРАЛИ");
@@ -311,8 +308,6 @@ public class HelloController {
                             listButtons.get(i).setText(list1.toString());
                         }
                         listButtons.get(i).setDisable(true);
-                    } else {
-                        list2.add(list1.toString());
                     }
                     i++;
                 }
@@ -323,14 +318,14 @@ public class HelloController {
             buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setStyle("-fx-text-fill: black;");
         }
         else {
-            if (set.contains(ButtonId.sendingId(buttonSource).replace("cell", ""))) {
+            if (ArraysOfFlagIndex.contains(ButtonId.sendingId(buttonSource).replace("cell", ""))) {
                 buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setText("");
-                set.remove(ButtonId.sendingId(buttonSource).replace("cell", ""));
+                ArraysOfFlagIndex.remove(ButtonId.sendingId(buttonSource).replace("cell", ""));
             }
             else {
                 buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setText("<|");
                 buttonsArray[Integer.parseInt(ButtonId.sendingId(buttonSource).replace("cell", ""))].setStyle("-fx-text-fill: red;");
-                set.add(ButtonId.sendingId(buttonSource).replace("cell", ""));
+                ArraysOfFlagIndex.add(ButtonId.sendingId(buttonSource).replace("cell", ""));
             }
         }
     }
@@ -348,19 +343,19 @@ public class HelloController {
                 cell70, cell71, cell72, cell73, cell74, cell75, cell76, cell77, cell78, cell79,
                 cell80
         };
-        set = new HashSet<>();
+        ArraysOfFlagIndex = new HashSet<>();
 
 
         MinePlacement minePlacement = new MinePlacement();
         Field field = new Field();
-        list = field.returnField(minePlacement.returnMines());
+        playingField = field.returnField(minePlacement.returnMines());
 
 
 
         List.of(buttonsArray1).forEach(cell -> cell.setDisable(false));
         List.of(buttonsArray1).forEach(cell -> cell.setText(""));
         result.setText("        ИГРА ИДЕТ");
-        game = true;
+
     }
 
     @FXML
@@ -382,10 +377,9 @@ public class HelloController {
                 cell80
         };
          int i = 0;
-         for (String set : set) {
-             if (list.get(Integer.parseInt(set)) == 9 ){
+         for (String set : ArraysOfFlagIndex) {
+             if (playingField.get(Integer.parseInt(set)) == 9 ){
                  i = i + 1;
-                 System.out.println(i);
              }
          }
          if (i == 8){
@@ -400,20 +394,32 @@ public class HelloController {
     public static void endGame(Button[] buttonsArray) {
 
         List.of(buttonsArray).forEach(cell -> cell.setDisable(true));
-        int d = 0;
-        for (Integer mine : list) {
+        for (Integer mine : playingField) {
             if (mine == 9) {
-                buttonsArray[d].setText(("*"));
+                buttonsArray[BUTTON_INDEX].setText(("*"));
 
             }
-            d++;
+            BUTTON_INDEX ++;
 
         }
     }
 
 
+    public ResourceBundle getResources() {
+        return resources;
+    }
 
+    public void setResources(ResourceBundle resources) {
+        this.resources = resources;
+    }
 
+    public URL getLocation() {
+        return location;
+    }
+
+    public void setLocation(URL location) {
+        this.location = location;
+    }
 }
 
 

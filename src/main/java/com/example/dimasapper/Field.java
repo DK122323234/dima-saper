@@ -5,105 +5,106 @@ import java.util.List;
 import java.util.Set;
 
 public class Field {
-    public List<Integer> returnField(Set<Integer> ARRAY_LOCATION_MIN){
-        List<Integer> fieldCellArray  = new ArrayList<>();
-        Integer[] ARRAY_OF_PROHIBITED_INDEX1 = {0, 9, 18, 27, 36, 45, 56, 63, 72};
-        List<Integer> ARRAY_LIST_OF_PROHIBITED_INDEX1 = new ArrayList<>(List.of(ARRAY_OF_PROHIBITED_INDEX1));
+  static final int MINE_VALUE = 9;
+  static final int DISPLACEMENT_OF_THE_LEFT_CAGE = -1;
+  static final int DISPLACEMENT_OF_THE_RIGHT_CAGE = 1;
+  static final int RIGHT_DOWN_CELL = 10;
+  static final int LEFT_DOWN_CELL = 8;
+  static final int RIGHT_UP_CELL = -8;
+  static final int LEFT_UP_CELL = -10;
+  static final int MINIMUM_INDEX_CELL = 0;
+  static final int MAXIMUM_INDEX_CELL = 80;
+  static final int UP_CELL = -9;
+  static final int DOWN_CELL = 9;
+  static final int MAXIMUM_CELLS = 81;
+  static final int MINE_NEARBY = 1;
+    public List<Integer> returnField(Set<Integer> locationMine) {
+        List<Integer> fieldCellArray = new ArrayList<>();
 
-        Integer[] ARRAY_OF_PROHIBITED_INDEX2 = {8, 17, 26, 35, 44, 53, 62, 71, 80};
-        List<Integer> ARRAY_LIST_OF_PROHIBITED_INDEX2 = new ArrayList<>(List.of(ARRAY_OF_PROHIBITED_INDEX2));
-        int INDEX_ARRAY_MINE = 0;
+
+        Set<Integer> leftmostCellIndexes = Set.of(0, 9, 18, 27, 36, 45, 56, 63, 72);
+        Set<Integer> rightmostCellIndexes = Set.of(8, 17, 26, 35, 44, 53, 62, 71, 80);
+
+        int indexArrayMine = 0;
 
 
-           while(fieldCellArray.size() < 81){
-                     if (ARRAY_LOCATION_MIN.contains(INDEX_ARRAY_MINE)){
-                         fieldCellArray.add(9);
-
+        while (fieldCellArray.size() < MAXIMUM_CELLS) {
+            if (locationMine.contains(indexArrayMine)) {
+                fieldCellArray.add(9);
+            } else {
+                fieldCellArray.add(0);
             }
-            else {
-                         fieldCellArray.add(0);
-            }
-               INDEX_ARRAY_MINE++;
+            indexArrayMine++;
         }
-        INDEX_ARRAY_MINE = 0;
+        indexArrayMine = 0;
 
 
-           for (Integer integer : fieldCellArray){
-               if (integer == 9){
-                   try {
-                     if (!ARRAY_LIST_OF_PROHIBITED_INDEX1.contains(INDEX_ARRAY_MINE)){
-                         if (fieldCellArray.get(INDEX_ARRAY_MINE - 1) != 9){
-                             fieldCellArray.set(INDEX_ARRAY_MINE - 1, fieldCellArray.get(INDEX_ARRAY_MINE - 1) + 1);
+        for (Integer cell : fieldCellArray) {
+            if (cell == MINE_VALUE) {
+                try {
+                    if (!leftmostCellIndexes.contains(indexArrayMine)) {
+                        if (fieldCellArray.get(indexArrayMine + DISPLACEMENT_OF_THE_LEFT_CAGE) != MINE_VALUE) {
+                            fieldCellArray.set(indexArrayMine + DISPLACEMENT_OF_THE_LEFT_CAGE, fieldCellArray.get(indexArrayMine + DISPLACEMENT_OF_THE_LEFT_CAGE) + MINE_NEARBY);
 
-                         }
-                         if (INDEX_ARRAY_MINE + 8 <= 80) {
-                             if (fieldCellArray.get(INDEX_ARRAY_MINE + 8) != 9) {
-                                 fieldCellArray.set(INDEX_ARRAY_MINE + 8, fieldCellArray.get(INDEX_ARRAY_MINE + 8) + 1);
-                             }
-                         }
-                         if (INDEX_ARRAY_MINE - 10 >= 0) {
-                             if (fieldCellArray.get(INDEX_ARRAY_MINE - 10) != 9) {
-                                 fieldCellArray.set(INDEX_ARRAY_MINE - 10, fieldCellArray.get(INDEX_ARRAY_MINE - 10) + 1);
-                             }
+                        }
+                        if (indexArrayMine + LEFT_DOWN_CELL <= MAXIMUM_INDEX_CELL) {
+                            if (fieldCellArray.get(indexArrayMine + LEFT_DOWN_CELL) != MINE_VALUE) {
+                                fieldCellArray.set(indexArrayMine + LEFT_DOWN_CELL, fieldCellArray.get(indexArrayMine + LEFT_DOWN_CELL) + MINE_NEARBY);
+                            }
+                        }
+                        if (indexArrayMine + LEFT_UP_CELL >= MINIMUM_INDEX_CELL) {
+                            if (fieldCellArray.get(indexArrayMine + LEFT_UP_CELL) != MINE_VALUE) {
+                                fieldCellArray.set(indexArrayMine + LEFT_UP_CELL, fieldCellArray.get(indexArrayMine + LEFT_UP_CELL) + MINE_NEARBY);
+                            }
 
-                         }
-                       }
-                     else {
-                         System.out.println("Если это читает Лёша, перестань немедлено");
-                     }
-
+                        }
+                    } else {
+                        System.out.println("Если это читает Лёша, перестань немедлено");
+                    }
 
 
+                    if (!rightmostCellIndexes.contains(indexArrayMine)) {
+
+                        if (fieldCellArray.get(indexArrayMine + DISPLACEMENT_OF_THE_RIGHT_CAGE) != MINE_VALUE) {
+                            fieldCellArray.set(indexArrayMine + DISPLACEMENT_OF_THE_RIGHT_CAGE, fieldCellArray.get(indexArrayMine + DISPLACEMENT_OF_THE_RIGHT_CAGE) + MINE_NEARBY);
+                        }
+
+                        if (indexArrayMine + RIGHT_UP_CELL >= MINIMUM_INDEX_CELL) {
+                            if (fieldCellArray.get(indexArrayMine  + RIGHT_UP_CELL) != MINE_VALUE) {
+                                fieldCellArray.set(indexArrayMine + RIGHT_UP_CELL, fieldCellArray.get(indexArrayMine + RIGHT_UP_CELL) + MINE_NEARBY);
+                            }
+                        }
+                        if (indexArrayMine + RIGHT_DOWN_CELL <= MAXIMUM_INDEX_CELL) {
+                            if (fieldCellArray.get(indexArrayMine + RIGHT_DOWN_CELL) != MINE_VALUE) {
+                                fieldCellArray.set(indexArrayMine + RIGHT_DOWN_CELL, fieldCellArray.get(indexArrayMine + RIGHT_DOWN_CELL) + MINE_NEARBY);
+                            }
+                        }
 
 
-                       if (!ARRAY_LIST_OF_PROHIBITED_INDEX2.contains(INDEX_ARRAY_MINE)){
+                    } else {
+                        System.out.println("Если это читает Лёша, Я ЖЕ СКАЗАЛ ПЕРЕСТАТЬ");
 
-                           if (fieldCellArray.get(INDEX_ARRAY_MINE + 1) != 9) {
-                               fieldCellArray.set(INDEX_ARRAY_MINE + 1, fieldCellArray.get(INDEX_ARRAY_MINE + 1) + 1);
-                           }
+                    }
+                } catch (Exception e) {
+                    System.out.println("ПРОЧИТАТЬ:");
+                }
 
-                           if (INDEX_ARRAY_MINE - 8 >= 0) {
-                               if (fieldCellArray.get(INDEX_ARRAY_MINE - 8) != 9) {
-                                   fieldCellArray.set(INDEX_ARRAY_MINE - 8, fieldCellArray.get(INDEX_ARRAY_MINE - 8) + 1);
-                               }
-                           }
-                           if (INDEX_ARRAY_MINE + 10 <= 80) {
-                               if (fieldCellArray.get(INDEX_ARRAY_MINE + 10) != 9) {
-                                   fieldCellArray.set(INDEX_ARRAY_MINE + 10, fieldCellArray.get(INDEX_ARRAY_MINE + 10) + 1);
-                               }
-                           }
+                if (indexArrayMine + UP_CELL >= MINIMUM_INDEX_CELL) {
+                    if (fieldCellArray.get(indexArrayMine + UP_CELL) != MINE_VALUE) {
+                        fieldCellArray.set(indexArrayMine  + UP_CELL, fieldCellArray.get(indexArrayMine  + UP_CELL) + MINE_NEARBY);
+                    }
+                }
 
-
-                       }
-                       else {
-                           System.out.println("Если это читает Лёша, Я ЖЕ СКАЗАЛ ПЕРЕСТАТЬ");
-
-                       }
-                   }
-                   catch (Exception e){
-                       System.out.println("ПРОЧИТАТЬ:");
-                   }
-
-                       if (INDEX_ARRAY_MINE - 9 >= 0) {
-                           if (fieldCellArray.get(INDEX_ARRAY_MINE - 9) != 9) {
-                               fieldCellArray.set(INDEX_ARRAY_MINE - 9, fieldCellArray.get(INDEX_ARRAY_MINE - 9) + 1);
-                       }
-                   }
-
-                       if (INDEX_ARRAY_MINE + 9 <= 80) {
-                           if (fieldCellArray.get(INDEX_ARRAY_MINE + 9) != 9) {
-                               fieldCellArray.set(INDEX_ARRAY_MINE + 9, fieldCellArray.get(INDEX_ARRAY_MINE + 9) + 1);
-                       }
-                   }
+                if (indexArrayMine + DOWN_CELL <= MAXIMUM_INDEX_CELL) {
+                    if (fieldCellArray.get(indexArrayMine + DOWN_CELL) != MINE_VALUE) {
+                        fieldCellArray.set(indexArrayMine + DOWN_CELL, fieldCellArray.get(indexArrayMine + DOWN_CELL) + MINE_NEARBY);
+                    }
+                }
 
 
-
-
-
-
-               }
-               INDEX_ARRAY_MINE ++;
-           }
+            }
+            indexArrayMine++;
+        }
 
         return fieldCellArray;
     }
